@@ -42,7 +42,14 @@ const SignIn = () => {
           </button>
         </div>
       </form>
-      
+      <div className="form-control mt-6">
+        <p className="text-center">
+          Don't have an account yet?{" "}
+          <Link className="link" to="/register">
+            Sign up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 };

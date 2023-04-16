@@ -14,8 +14,11 @@ import DashboardProfileSettings from "./components/Dashboard/Pages/DashboardProf
 import DashboardBlogs from "./components/Dashboard/Pages/DashboardBlogs";
 import AllUsers from "./components/Dashboard/Pages/AllUsers";
 import NotFound from "./components/FrontPart/Pages/NotFound";
+import Register from "./components/FrontPart/Pages/Register";
 
 function App() {
+
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -38,6 +41,10 @@ function App() {
         {
           path: "/sign-in",
           element: <SignIn />,
+        },
+        {
+          path: "/register",
+          element: <Register />,
         },
       ],
     },

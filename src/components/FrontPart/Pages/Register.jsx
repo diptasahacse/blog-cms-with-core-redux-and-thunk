@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
@@ -14,13 +14,16 @@ const Register = () => {
 
   const { loadingStatus } = loading;
 
-  console.log(loadingStatus);
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors },
   } = useForm();
+
+  useEffect(() => {
+    dispatch(loadingStop());
+  }, []);
 
   const onSubmit = async (formData) => {
     dispatch(loadingStart());
@@ -40,7 +43,7 @@ const Register = () => {
     })
       .then((res) => res.json())
       .then((resData) => {
-        if (resData.status) {
+        if (resData.success) {
           dispatch(loadingStop());
           toast(resData.message);
         } else {

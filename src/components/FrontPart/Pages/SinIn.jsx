@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loadingStart,
+  loadingStop,
+} from "../../../../redux/actionCreators/loadingAction";
+import { toast } from "react-toastify";
 const SignIn = () => {
   const {
     register,
@@ -10,7 +16,39 @@ const SignIn = () => {
     formState: { errors },
   } = useForm();
 
-  const onSubmit = (data) => console.log(data);
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state);
+
+  const { loadingStatus } = loading;
+
+  useEffect(() => {
+    dispatch(loadingStop());
+  }, []);
+
+  const onSubmit = async (formData) => {
+    const { email, password } = formData;
+    dispatch(loadingStart());
+    await fetch(`${import.meta.env.VITE_NODE_SERVER_API}/login`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email,
+        password,
+      }),
+    })
+      .then((res) => res.json())
+      .then((resData) => {
+        if (resData.success) {
+          toast("Successfully login");
+          dispatch(loadingStop());
+        } else {
+          toast.error(resData.message);
+          dispatch(loadingStop());
+        }
+      });
+  };
   return (
     <div className="w-full  py-5">
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -37,9 +75,12 @@ const SignIn = () => {
           />
         </div>
         <div className="form-control mt-5">
-          <button type="submit" className="btn btn-primary">
-            Sign In
-          </button>
+          {loadingStatus && <button className="btn loading">loading</button>}
+          {!loadingStatus && (
+            <button type="submit" className="btn btn-primary">
+              Sign In
+            </button>
+          )}
         </div>
       </form>
       <div className="form-control mt-6">

@@ -1,1 +1,3 @@
 export const SIDE_BAR_TOGGLE = "SIDE_BAR_TOGGLE";
+export const LOADING_START = "LOADING_START";
+export const LOADING_STOP = "LOADING_STOP";

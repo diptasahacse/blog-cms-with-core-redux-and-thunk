@@ -3,8 +3,18 @@ import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 import { toast } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  loadingStart,
+  loadingStop,
+} from "../../../../redux/actionCreators/loadingAction";
 const Register = () => {
-    
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state);
+
+  const { loadingStatus } = loading;
+
+  console.log(loadingStatus);
   const {
     register,
     handleSubmit,
@@ -13,29 +23,30 @@ const Register = () => {
   } = useForm();
 
   const onSubmit = async (formData) => {
-    const {email, phone, fullName, password} = formData;
-    
-    await fetch("http://localhost:5000/register", {
+    dispatch(loadingStart());
+    const { email, phone, fullName, password } = formData;
+
+    await fetch(`${import.meta.env.VITE_NODE_SERVER_API}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        email, phone, fullName, password
-
+        email,
+        phone,
+        fullName,
+        password,
       }),
     })
       .then((res) => res.json())
       .then((resData) => {
-        console.log(resData)
-        if(resData.status){
-          toast(resData.message)
-
+        if (resData.status) {
+          dispatch(loadingStop());
+          toast(resData.message);
+        } else {
+          dispatch(loadingStop());
+          toast.error(resData.message);
         }
-        else{
-          toast.error(resData.message)
-        }
-
       });
   };
   return (
@@ -87,9 +98,12 @@ const Register = () => {
         </div>
 
         <div className="form-control mt-5">
-          <button type="submit" className="btn btn-primary">
-            Register
-          </button>
+          {loadingStatus && <button className="btn loading">loading</button>}
+          {!loadingStatus && (
+            <button type="submit" className="btn btn-primary">
+              Register
+            </button>
+          )}
         </div>
       </form>
       <div className="form-control mt-6">

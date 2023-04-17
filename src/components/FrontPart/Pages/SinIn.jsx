@@ -42,6 +42,7 @@ const SignIn = () => {
       .then((resData) => {
         if (resData.success) {
           toast("Successfully login");
+          console.log(resData)
           dispatch(loadingStop());
         } else {
           toast.error(resData.message);

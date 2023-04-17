@@ -15,10 +15,9 @@ import DashboardBlogs from "./components/Dashboard/Pages/DashboardBlogs";
 import AllUsers from "./components/Dashboard/Pages/AllUsers";
 import NotFound from "./components/FrontPart/Pages/NotFound";
 import Register from "./components/FrontPart/Pages/Register";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 function App() {
-
-
   const router = createBrowserRouter([
     {
       path: "/",
@@ -83,6 +82,7 @@ function App() {
   return (
     <>
       <RouterProvider router={router} />
+      <ToastContainer />
     </>
   );
 }

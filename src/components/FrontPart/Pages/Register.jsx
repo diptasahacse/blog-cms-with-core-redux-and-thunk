@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { useQuery } from "react-query";
+import { toast } from "react-toastify";
 const Register = () => {
     
   const {
@@ -25,7 +26,17 @@ const Register = () => {
       }),
     })
       .then((res) => res.json())
-      .then((resData) => console.log(resData));
+      .then((resData) => {
+        console.log(resData)
+        if(resData.status){
+          toast(resData.message)
+
+        }
+        else{
+          toast.error(resData.message)
+        }
+
+      });
   };
   return (
     <div className="w-full py-5">

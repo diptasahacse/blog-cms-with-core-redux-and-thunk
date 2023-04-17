@@ -17,6 +17,7 @@ import NotFound from "./components/FrontPart/Pages/NotFound";
 import Register from "./components/FrontPart/Pages/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import RequireAuth from "./components/Shared/RequireAuth";
 function App() {
   const router = createBrowserRouter([
     {
@@ -49,7 +50,9 @@ function App() {
     },
     {
       path: "/dashboard",
-      element: <DashboardLayout />,
+      element: (
+        <DashboardLayout />
+      ),
       children: [
         {
           path: "/dashboard",

@@ -1,9 +1,14 @@
-import React from 'react'
+import React from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import useAuth from "../../customHooks/useAuth";
 
-const RequireAuth = () => {
-  return (
-    <div>RequireAuth</div>
-  )
-}
+const RequireAuth =  ({ children }) => {
+  let location = useLocation();
 
-export default RequireAuth
+  const data = useAuth()
+  console.log(data)
+
+  return children;
+};
+
+export default RequireAuth;

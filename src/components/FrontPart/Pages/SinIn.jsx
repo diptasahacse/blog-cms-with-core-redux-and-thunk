@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useLocation, useNavigate } from "react-router-dom";
 
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,7 +20,9 @@ const SignIn = () => {
   const { loading } = useSelector((state) => state);
 
   const { loadingStatus } = loading;
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  let from = location.state?.from?.pathname || "/dashboard";
   useEffect(() => {
     dispatch(loadingStop());
   }, []);
@@ -42,8 +44,13 @@ const SignIn = () => {
       .then((resData) => {
         if (resData.success) {
           toast("Successfully login");
-          console.log(resData)
+          // console.log(resData)
+
+          const token = resData.data;
+
+          localStorage.setItem("accessToken", token);
           dispatch(loadingStop());
+          navigate(from, { replace: true });
         } else {
           toast.error(resData.message);
           dispatch(loadingStop());

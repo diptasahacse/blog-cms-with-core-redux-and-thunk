@@ -1,6 +1,16 @@
 /* 
 Dashboard
 
+
+/* Autocomplete input */
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+    transition: background-color 600000s 0s, color 600000s 0s;
+}
+input[data-autocompleted] {
+  background-color: transparent !important;
+}
+
 /* Scrollbar */
 ::-webkit-scrollbar {
   width: 5px;

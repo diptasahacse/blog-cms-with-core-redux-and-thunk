@@ -51,7 +51,9 @@ function App() {
     {
       path: "/dashboard",
       element: (
-        <DashboardLayout />
+        <RequireAuth>
+          <DashboardLayout />
+        </RequireAuth>
       ),
       children: [
         {

@@ -2,8 +2,8 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 const useAuth = () => {
-    const [data, setData] = useState({})
-    
+  const [data, setData] = useState({});
+
   fetch(`${import.meta.env.VITE_NODE_SERVER_API}/userData`, {
     method: "POST",
     headers: {
@@ -14,9 +14,9 @@ const useAuth = () => {
     body: JSON.stringify({
       token: localStorage.getItem("accessToken"),
     }),
-  }).then((res)=> res.json())
-  .then(data => setData(data));
-
+  })
+    .then((res) => res.json())
+    .then((data) => setData(data));
 
   return data;
 };

@@ -8,6 +8,7 @@ import {
   loadingStop,
 } from "../../../../redux/actionCreators/loadingAction";
 import { toast } from "react-toastify";
+import baseUrl from "../../../../utils/bageUrl";
 const SignIn = () => {
   const {
     register,
@@ -30,7 +31,7 @@ const SignIn = () => {
   const onSubmit = async (formData) => {
     const { email, password } = formData;
     dispatch(loadingStart());
-    await fetch(`${import.meta.env.VITE_NODE_SERVER_API}/login`, {
+    await fetch(`${baseUrl}/login`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -8,6 +8,7 @@ import {
   loadingStart,
   loadingStop,
 } from "../../../../redux/actionCreators/loadingAction";
+import baseUrl from "../../../../utils/bageUrl";
 const Register = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state);
@@ -29,7 +30,7 @@ const Register = () => {
     dispatch(loadingStart());
     const { email, phone, fullName, password } = formData;
 
-    await fetch(`${import.meta.env.VITE_NODE_SERVER_API}/register`, {
+    await fetch(`${baseUrl}/register`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

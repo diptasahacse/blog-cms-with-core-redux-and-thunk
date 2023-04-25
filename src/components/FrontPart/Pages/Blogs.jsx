@@ -1,13 +1,23 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
-
+import PageTitle from "../FrontPartComponents/Components/PageTitle";
+import blogData from "../../../../public/blogs.json";
+import BlogCard from "../FrontPartComponents/Components/BlogCard";
 const Blogs = () => {
-  
+  console.log(blogData);
   console.log();
   return (
-    <div>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Officiis consequuntur quos amet atque odio saepe unde magnam consectetur mollitia expedita quaerat deserunt dolorem, ipsum tempora cupiditate a doloremque voluptate rerum nisi asperiores ipsa illum id. Molestiae quasi vitae nam quia inventore commodi ipsa soluta, assumenda, cupiditate doloremque in aliquam! Eos, itaque repudiandae porro saepe eius eum delectus deleniti minima esse, cupiditate nobis laborum asperiores architecto. Praesentium nobis qui dolorum unde quia esse molestiae tenetur! Ipsa iure adipisci vero esse maiores repudiandae aliquam et iusto blanditiis minus. Illo, doloribus atque. Laborum sequi labore atque, sit iste sint ipsam, cum ea expedita laudantium facilis culpa mollitia, odit molestiae. Quo, laboriosam? Officia quis enim dicta rerum, eligendi dolore, alias assumenda libero nisi cupiditate eaque et minus! Temporibus blanditiis velit, assumenda, ullam totam placeat nostrum quisquam eligendi nesciunt quis, aspernatur quas. Incidunt, harum eligendi est quae blanditiis ut ipsam tenetur ad nulla molestiae voluptatum animi cumque nostrum necessitatibus facere quidem, sunt distinctio qui quibusdam consectetur accusamus explicabo similique. Quod nostrum, illum recusandae possimus atque iste, quam placeat nulla, cumque praesentium nesciunt dignissimos at a. Beatae, aut dolor voluptatum quaerat harum aspernatur quas magni vitae reiciendis ipsam aliquam nostrum perspiciatis tempore ducimus deserunt maiores, a, accusamus dolore dicta. Totam enim velit, deserunt voluptate sunt repellat, quibusdam, nesciunt sit facilis quasi animi odit sed fugiat possimus. Dolorum dolorem porro voluptatibus distinctio velit eum inventore quis amet, soluta odit reiciendis culpa autem eveniet eos? Tempore quas autem mollitia, natus quia, vitae architecto voluptatibus maiores aperiam explicabo, quis accusantium omnis dolorem ullam odit aliquid repellat minus odio! Cupiditate provident ducimus tempora sunt. Quod libero, asperiores rem amet minus aspernatur tempore optio veniam officiis recusandae excepturi sequi iusto possimus delectus maiores eos neque iure, odio tempora, fuga aliquid quasi voluptate doloremque doloribus? Amet perferendis tempore, facilis, excepturi dignissimos quo praesentium aliquid beatae quisquam eveniet quam ipsum explicabo quibusdam, consequuntur recusandae dolore veritatis? Amet tempore aliquam laudantium fuga delectus explicabo vero maiores, ex consectetur, autem, ratione officia laboriosam. Cum unde aliquid neque perspiciatis rem quaerat excepturi reprehenderit sequi accusantium explicabo facilis blanditiis eum quidem in sint impedit corrupti magni dolores suscipit est, voluptatum, nemo mollitia expedita non! Vitae commodi doloribus quisquam omnis facere dolorum tempore consequatur officiis veritatis quod, molestias magnam nemo minima rem, iusto, ipsum repellendus voluptatem ullam voluptates magni ipsa dolor? Eos pariatur, quos rerum error esse doloribus. Saepe soluta error necessitatibus provident ipsa iusto, velit fugiat vero repellendus vitae ut, dolorum culpa dolores a sit veritatis. Explicabo autem iusto tenetur dolorem aut laboriosam? Cupiditate deleniti hic accusantium incidunt magnam explicabo nesciunt accusamus quod corporis nulla. Voluptatum nihil reprehenderit unde alias nam non a similique voluptate possimus! Tempora iusto, ad illum eveniet ipsum dicta sed laboriosam facere debitis! Quaerat ad alias rerum consequatur, explicabo iste sit exercitationem dolorum, delectus inventore consectetur, expedita reiciendis in nisi voluptates? Est vitae illum voluptatibus repellendus corporis. Ad, suscipit, fugit aspernatur nesciunt molestias eaque nulla eum excepturi distinctio recusandae quos, sed illum consequuntur. At reprehenderit doloremque veritatis error necessitatibus ex neque ducimus labore?
-     
+    <div className="overflow-hidden ">
+      <PageTitle heading="Blogs" />
+      <div className="bg-primary  py-10">
+        <div className="mx-auto max-w-7xl">
+          <div className="grid grid-cols-3 gap-4">
+            {blogData.map((item, index) => (
+              <BlogCard item={item} key={index} />
+            ))}
+          </div>
+        </div>
+      </div>
     </div>
   );
 };

@@ -10,7 +10,7 @@ const ReadingHistory = () => {
         <h2 className="card-title">History</h2>
         <div>
           {blogData.slice(0, 3).map((item, index) => (
-            <Link to="/" className="mb-6 inline-block" key={index}>
+            <Link to="/" className="mb-3 duration-75 py-2 inline-block border border-transparent hover:border-[#262655]" key={index}>
               <div className="flex gap-2">
                 <img className="w-[80px]" src={item.featureImage} alt="" />
                 <h5 className="font-bold">{item.title}</h5>

@@ -9,7 +9,7 @@ const SortByTag = () => {
           <div className="badge p-3 text-base m-1 text-white bg-[#48526e]">
             #JS
           </div>
-          <div className="badge p-3 text-base m-1 text-white bg-[#48526e]">
+          <div className="badge p-3 text-base m-1 text-white bg-[#4f46e5]">
             #Node JS
           </div>
           <div className="badge p-3 text-base m-1 text-white bg-[#48526e]">

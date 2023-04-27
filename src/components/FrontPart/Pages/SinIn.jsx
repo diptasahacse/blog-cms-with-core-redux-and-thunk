@@ -31,32 +31,38 @@ const SignIn = () => {
   const onSubmit = async (formData) => {
     const { email, password } = formData;
     dispatch(loadingStart());
-    await fetch(`${baseUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        if (resData.success) {
-          toast("Successfully login");
-          // console.log(resData)
-
-          const token = resData.data;
-
-          localStorage.setItem("accessToken", token);
-          dispatch(loadingStop());
-          navigate(from, { replace: true });
-        } else {
-          toast.error(resData.message);
-          dispatch(loadingStop());
-        }
-      });
+    try {
+      await fetch(`${baseUrl}/login`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          if (resData.success) {
+            toast("Successfully login");
+            // console.log(resData)
+  
+            const token = resData.data;
+  
+            localStorage.setItem("accessToken", token);
+            dispatch(loadingStop());
+            navigate(from, { replace: true });
+          } else {
+            toast.error(resData.message);
+            dispatch(loadingStop());
+          }
+        });
+    } catch (error) {
+      dispatch(loadingStop());
+      toast.error(error.message);
+      
+    }
   };
   return (
     <div className="w-full  py-5">

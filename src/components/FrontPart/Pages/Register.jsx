@@ -30,28 +30,33 @@ const Register = () => {
     dispatch(loadingStart());
     const { email, phone, fullName, password } = formData;
 
-    await fetch(`${baseUrl}/register`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        email,
-        phone,
-        fullName,
-        password,
-      }),
-    })
-      .then((res) => res.json())
-      .then((resData) => {
-        if (resData.success) {
-          dispatch(loadingStop());
-          toast(resData.message);
-        } else {
-          dispatch(loadingStop());
-          toast.error(resData.message);
-        }
-      });
+    try {
+      await fetch(`${baseUrl}/register`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          email,
+          phone,
+          fullName,
+          password,
+        }),
+      })
+        .then((res) => res.json())
+        .then((resData) => {
+          if (resData.success) {
+            dispatch(loadingStop());
+            toast(resData.message);
+          } else {
+            dispatch(loadingStop());
+            toast.error(resData.message);
+          }
+        });
+    } catch (error) {
+      dispatch(loadingStop());
+      toast.error(error.message);
+    }
   };
   return (
     <div className="w-full py-5">

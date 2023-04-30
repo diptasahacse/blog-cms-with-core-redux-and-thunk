@@ -8,8 +8,10 @@ import {
   loadingStop,
 } from "../../../../redux/actionCreators/loadingAction";
 import { toast } from "react-toastify";
-import baseUrl from "../../../../utils/bageUrl";
+
+import AuthUser from "../../../services/AuthUser";
 const SignIn = () => {
+  const { http, setToken } = AuthUser();
   const {
     register,
     handleSubmit,
@@ -23,6 +25,7 @@ const SignIn = () => {
   const { loadingStatus } = loading;
   const navigate = useNavigate();
   const location = useLocation();
+
   let from = location.state?.from?.pathname || "/dashboard";
   useEffect(() => {
     dispatch(loadingStop());
@@ -31,38 +34,54 @@ const SignIn = () => {
   const onSubmit = async (formData) => {
     const { email, password } = formData;
     dispatch(loadingStart());
+
     try {
-      await fetch(`${baseUrl}/login`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          email,
-          password,
-        }),
-      })
-        .then((res) => res.json())
-        .then((resData) => {
-          if (resData.success) {
-            toast("Successfully login");
-            // console.log(resData)
-  
-            const token = resData.data;
-  
-            localStorage.setItem("accessToken", token);
-            dispatch(loadingStop());
-            navigate(from, { replace: true });
-          } else {
-            toast.error(resData.message);
-            dispatch(loadingStop());
-          }
-        });
+      http.post("/login", { email, password }).then((res) => {
+        if (res.status === 201) {
+          dispatch(loadingStop());
+          setToken(res.data.user, res.data.token);
+        } else {
+          dispatch(loadingStop());
+          toast.error(res.data.message)
+        }
+      });
     } catch (error) {
       dispatch(loadingStop());
-      toast.error(error.message);
-      
     }
+
+    // try {
+    //   await fetch(`${baseUrl}/login`, {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({
+    //       email,
+    //       password,
+    //     }),
+    //   })
+    //     .then((res) => res.json())
+    //     .then((resData) => {
+    //       if (resData.success) {
+    //         toast("Successfully login");
+    //         // console.log(resData)
+
+    //         const token = resData.data;
+
+    //         setToken(token)
+    //         dispatch(loadingStop());
+    //         console.log(resData)
+    //         // navigate(from, { replace: true });
+    //       } else {
+    //         toast.error(resData.message);
+    //         dispatch(loadingStop());
+    //       }
+    //     });
+    // } catch (error) {
+    //   dispatch(loadingStop());
+    //   toast.error(error.message);
+
+    // }
   };
   return (
     <div className="w-full  py-5">

@@ -18,6 +18,7 @@ import Register from "./components/FrontPart/Pages/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import RequireAuth from "./components/Shared/RequireAuth";
+import RequireAdmin from "./components/Shared/RequireAdmin";
 function App() {
   const router = createBrowserRouter([
     {
@@ -70,11 +71,19 @@ function App() {
         },
         {
           path: "/dashboard/blogs",
-          element: <DashboardBlogs />,
+          element: (
+            <RequireAdmin>
+              <DashboardBlogs />
+            </RequireAdmin>
+          ),
         },
         {
           path: "/dashboard/users",
-          element: <AllUsers />,
+          element: (
+            <RequireAdmin>
+              <AllUsers />
+            </RequireAdmin>
+          ),
         },
       ],
     },

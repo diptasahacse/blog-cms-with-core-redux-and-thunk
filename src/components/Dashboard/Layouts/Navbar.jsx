@@ -1,13 +1,13 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toggleDashboard } from "../../../../redux/actionCreators/dashboardActions";
 
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="navbar sticky border-b border-[#f1f5f90d] z-50 top-0 bg-neutral">
       <div className="flex-1">
-        
         <label
           htmlFor="dashboard-toggle-button"
           className="drawer-button lg:hidden"
@@ -35,7 +35,16 @@ const Navbar = () => {
               <Link to="/dashboard/profile-settings">Settings</Link>
             </li>
             <li>
-              <Link to="/">Logout</Link>
+              <Link
+                type="button"
+                onClick={() => {
+                  navigate("/");
+                  return sessionStorage.clear();
+                }}
+               
+              >
+                Logout
+              </Link>
             </li>
           </ul>
         </div>

@@ -41,6 +41,7 @@ const Register = () => {
           phone,
           fullName,
           password,
+          role: "user",
         }),
       })
         .then((res) => res.json())
